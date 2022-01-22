@@ -1,0 +1,11 @@
+{
+  "collectCoverage":true,
+  "reporters":[
+    "default",
+    [ "jest-junit", {
+      "outputDirectory": "test-reports",
+      "outputName": "test-api"
+    }]
+  ]
+}
+

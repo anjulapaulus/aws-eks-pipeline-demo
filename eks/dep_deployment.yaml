@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coinbase-deployment-${DEPLOYMENT_VERSION}
+  labels:
+    app: coinbase
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: coinbase
+  template:
+    metadata:
+      labels:
+        app: coinbase
+        version: ${DEPLOYMENT_VERSION}
+    spec:
+      containers:
+        - name: coinbase
+          image: ${REPOSITORY_URI}:${DEPLOYMENT_VERSION}
+          imagePullPolicy: Always
+          # resources:
+          #   requests:
+          #     memory: "500m"
+          #     cpu: "1Gi"
+          #   limits:
+          #     memory: "100m"
+          #     cpu: "200Mi"
+          ports:
+            - containerPort: 8000
+      volumes:
+        - name: config-cm-${DEPLOYMENT_VERSION}
+          configMap:
+            name: config-cm-${DEPLOYMENT_VERSION}

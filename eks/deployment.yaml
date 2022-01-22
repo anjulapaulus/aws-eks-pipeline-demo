@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: coinbase
+    app.kubernetes.io/instance: coinbase-instance
+    app.kubernetes.io/version: '1.0.0'
+    app.kubernetes.io/managed-by: kubectl
+  name: coinbase
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: coinbase
+  template:
+    metadata:
+      labels:
+        app: coinbase
+    spec:
+      containers:
+        - image: 377321184712.dkr.ecr.ap-southeast-1.amazonaws.com/coinbase:latest
+          imagePullPolicy: Always
+          name: coinbase
+          ports:
+            - containerPort: 8000
+      volumes:
+        - name: config-cm
+          configMap:
+            name: config-cm
+            

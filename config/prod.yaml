@@ -1,0 +1,7 @@
+port: 8000 
+database:
+  host: ""
+  port: 3306
+  user     : "admin"
+  password : "admin"
+  database: "databse"
